@@ -1,0 +1,180 @@
+<html>
+	<head>
+		<link rel="shortcut icon" href="favicon.ico">
+		<meta charset="utf-8" />
+<title>Niên luận cơ sở - Đồ thị</title>
+		<style>
+ body{
+touch-action: none;
+margin:0%;
+padding:0%;
+width:100%;
+height:100%;
+background: #EEEEEE;
+text-align:center;
+}
+#DoiLoai{
+ -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+ -webkit-tap-highlight-color: rgba(0,0,0,0);
+ border:none;
+}
+#BangVe{
+ -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+ -webkit-tap-highlight-color: rgba(0,0,0,0);
+ border:solid 1px;
+ padding:0%;
+ margin:0%;
+ background:#FFFFFF;
+ }
+ ::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+.chuotxoa {cursor: alias;}
+		</style>
+		<meta name="viewport" content="user-scalable=no" />
+		<link rel="stylesheet" href="w3.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="createjs.js"></script>
+	</head>
+	<body>
+		<div class="w3-container w3-white w3-text-blue">
+			<h1>
+				<i class="fa fa-meetup"></i>
+				Đồ thị Online
+			</h1>
+		</div>
+		<div class="w3-display-container w3-dark-grey">
+		<div class="w3-container w3-display-topleft" style="max-height:600px;overflow: scroll">
+			<p><button id="ThemDiem" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-circle-o"></i>
+				Thêm điểm
+			</button></p>
+			<p><button id="ThemCung" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-code-fork"></i>
+				Thêm cung
+			</button></p>
+			<p><button id="L_NhapData" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-pencil"></i>
+				Nhập Data
+			</button></p>
+			<p><button id="XoaMot" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-close"></i>
+				Xóa đỉnh/cung
+			</button></p>
+			<p><button id="DoiLoai" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Đổi loại(Có/Vô hướng)
+			</button></p>
+			<p><button id="DuyetRong" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Duyệt chiều rộng
+			</button></p>
+			<p><button id="DuyetSau" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Duyệt chiều sâu
+			</button></p>
+			<p><button id="LienThong" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Kiểm tra liên thông
+			</button></p>
+			<p><button id="Kruskal" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Cây Kruskal(vô hướng)
+			</button></p>
+			<p><button id="Prim" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Cây Prim(vô hướng)
+			</button></p>
+			<p><button id="Edmonds" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Cây Edmonds(có hướng)
+			</button></p>
+			<p><button id="Ford" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Luồng cực đại (Ford)
+			</button></p>
+			<p><button id="Dijkstra" class="w3-btn w3-white w3-border w3-round-large w3-left w3-margin-bottom">
+				<i class="fa fa-cog"></i>
+				Tìm đường ngắn(Dijkstra)
+			</button></p>
+		</div>
+		<div class="w3-container w3-text-blue w3-display-topright" style="width:20%;height:300px">
+			<div class="w3-container w3-border-bottom w3-padding-16 w3-large w3-blue" style="width:100%">
+				Kết quả
+			</div>
+			<div class="w3-container w3-border-bottom w3-large w3-white" style="width:100%;max-height:500px;padding:5px;overflow: scroll" id="KetQua">
+				. . .
+			</div>
+		</div>
+		<div id="CanhBao" class="w3-modal" style="display:none">
+			<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:300px">
+				<div class="w3-container w3-border-bottom w3-padding-16 w3-large w3-left-align w3-pink">
+					<span class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Đóng" id="DongLoi">×</span>
+					<span>Thông báo</span>
+				</div>
+				<div class="w3-container w3-border-bottom w3-padding-16 w3-large w3-left-align">
+					<p id="VanBanLoi" class="w3-text-dark-grey">
+						Có một lỗi
+					</p>
+				</div>
+			</div>
+		</div>
+		<div id="nhapdata" class="w3-modal" style="display:none">
+			<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+				<div class="w3-container w3-border-bottom w3-padding-16 w3-large w3-left-align w3-light-gray">
+					<span class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Đóng" id="DongData">×</span>
+					<span class="w3-text-dark-grey">Nhập dữ liệu đồ thị...</span>
+				</div>
+				<div class="w3-container w3-border-bottom w3-padding-16 w3-large w3-left-align">
+					<p class="w3-text-dark-grey">
+						Lưu ý:
+						<br>* Dòng đầu là "đỉnh lớn nhất" và số cung (chỉ số đỉnh bất đầu từ 0)
+						<br>* Các dòng tiếp theo thể hiện các giá trị cung: Đỉnh đầu, Đỉnh cuối, [Trọng số].
+						<br>* Nếu trọng số bỏ trống, nó sẽ có giá trị 0.
+						<br> <a href="DataTest.html">Lấy Data có sẵn</a>
+					</p>
+					<textarea rows="5" cols="50" class="w3-input w3-border w3-round" id="oNhap" style="resize:vertical;max-height:100%;" placeholder="Nhập.." type="text">3 4&#10;0 3 2&#10;2 3 7</textarea>
+				</div>
+				<div class="w3-container w3-large">
+					<p><button id="TaoData" class="w3-btn w3-green w3-border w3-round-large w3-center">
+						<i class="fa fa-cog"></i>
+						Tạo ngay!
+					</button></p>
+				</div>
+			</div>
+		</div>
+		<div id="nhapTrong" class="w3-modal" style="display:none">
+			<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+				<div class="w3-container w3-border-bottom w3-padding-16 w3-large w3-left-align w3-light-gray">
+					<span class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Đóng" id="dongTrong">×</span>
+					<span class="w3-text-dark-grey">Nhập trọng số cho cung...</span>
+				</div>
+				<div class="w3-container w3-border-bottom w3-padding-16 w3-large w3-left-align">
+					<input type="text" id="soTrong" value="0" class="w3-input w3-border w3-round">
+				</div>
+				<div class="w3-container w3-large">
+					<p><button id="xacTrong" class="w3-btn w3-green w3-border w3-round-large w3-center">
+						<i class="fa fa-cog"></i>
+						Nhập!
+					</button></p>
+				</div>
+			</div>
+		</div>
+		<canvas id="BangVe" width="800" height="600"></canvas>
+		</div>
+		<script language="javascript" src="jquery-3.2.1.min.js"></script>
+		<script language="javascript" src="fraction.min.js"></script>
+		<script language="javascript" src="caidat.js"></script>
+		<script language="javascript" src="runjs.js"></script>
+	</body>
+</html>
